@@ -8,16 +8,17 @@ const rl = readline.createInterface({
 const lines = [];
 rl.on('line', (line) =>lines.push(line));
 // rl.on('close', (line) => compute(lines));
-rl.on('close', (line) => problem2(lines));
+rl.on('close', (line) => quack(lines));
  
 function quack(lines) {
-    const actions = []
+    let actions = []
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
-    let returnString = ''
+    let returnString = []
     lines.forEach(element => {
-        actions.concat(element.split(" "))
+        actions = actions.concat(element.split(" "))
     });
     let index = 0
+    console.log(actions)
     for(let action of actions){
         if(action == "qwak"){
             index++;
@@ -27,5 +28,5 @@ function quack(lines) {
             returnString.push(letters[index])
         }
     }
-    console.log(returnString)
+    console.log(returnString.join(''))
 }
