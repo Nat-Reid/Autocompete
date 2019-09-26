@@ -7,19 +7,17 @@ const rl = readline.createInterface({
 
 const lines = [];
 rl.on('line', (line) =>lines.push(line));
-// rl.on('close', (line) => compute(lines));
 rl.on('close', (line) => problem2(lines));
 
-String.prototype.format = function() {
-    var args = arguments;
-    return this.replace(/{(\d+)}/g, function(match, number) { 
-      return typeof args[number] != 'undefined'
-        ? args[number]
-        : match
-      ;
-    });
+String.prototype.format = function(obj) {
+    for(let key in Object.keys(obj)){
+        return this.replace('{'+key+'}', obj[key])
+    }
   };
-  
+
+  String.prototype.replaceAt=function(index, replacement) {
+    return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
+} 
 function compute(lines){
     let a = lines[0]
     console.log("Knock knock.")
@@ -31,6 +29,7 @@ function compute(lines){
 
 function problem2(lines){
     const varObj = {'': '%'}
+    const returnLines = []
     for(let line of lines){
         if(line.includes('=')){
             let [key, val] = line.split('=')
@@ -40,15 +39,16 @@ function problem2(lines){
             for (var i = 0; i < line.length; i++) {
                 if(line[i] == '%'){
                     if(openPercent){
-                        line[i] = '{'
+                        line = line.replaceAt(i,'{')
                         openPercent = !openPercent
                     }else{
-                        line[i] = '}'
+                        line = line.replaceAt(i,'}')
                         openPercent = !openPercent
                     }
                 }
             }
+            returnLines.push(line.format(varObj))
         }
     }
-    console.log(JSON.stringify(varObj))
+    console.log(returnLines)
 }

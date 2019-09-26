@@ -1,0 +1,7 @@
+event=emergency
+verb=panic
+adjective=patiently
+vehicle=aircraft
+In the event of a %event% do not %verb%. wait %adjective%.
+The %vehicle% will resume normal operations soon once the
+%event% is over. 99%% of the time everything is fine.
