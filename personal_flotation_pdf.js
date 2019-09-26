@@ -10,9 +10,11 @@ rl.on('line', (line) =>lines.push(line));
 rl.on('close', (line) => problem2(lines));
 
 String.prototype.format = function(obj) {
-    for(let key in Object.keys(obj)){
-        return this.replace('{'+key+'}', obj[key])
+    let tempS = this.slice()
+    for (let [key, value] of Object.entries(obj)){
+        tempS = tempS.replace(`{${key}}`, value)
     }
+    return tempS
   };
 
   String.prototype.replaceAt=function(index, replacement) {
@@ -47,6 +49,7 @@ function problem2(lines){
                     }
                 }
             }
+            // console.log(line.format(varObj))
             returnLines.push(line.format(varObj))
         }
     }
